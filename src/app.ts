@@ -1,19 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 
-import * as plansController from './controllers/plansController';
-import * as codesController from './controllers/codesController';
-import * as simulationsController from './controllers/simulationsController';
-import * as tariffsController from './controllers/tariffsController';
+import plansRouter from './routers/plansRouter';
+import codesRouter from './routers/codesRouter';
+import simulationsRouter from './routers/simulationsRouter';
+import tariffsRouter from './routers/tariffsRouter';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/plans', plansController.getNewPlans);
-app.get('/originCodes', codesController.getOriginCodes);
-app.get('/destinationCodes/:originId', codesController.getDestinationCodes);
-app.post('/simulation', simulationsController.makeSimulation);
-app.get('/tariffs', tariffsController.getTariffs);
+app.use(plansRouter);
+app.use(codesRouter);
+app.use(simulationsRouter);
+app.use(tariffsRouter);
 
 export default app;
