@@ -1,22 +1,24 @@
 import '../setup';
 import connection from '../database';
 
-export async function getPrice(originId: number, destinationId: number):Promise<any[]> {
+export async function getPrice(originId: number, destinationId: number):Promise<any[] | false> {
   const price = await connection.query(`
     SELECT "oldPrice", "newPrice"
     FROM "oldValues"
     WHERE "originId" = $1
     AND "destinationId" = $2
   `, [originId, destinationId]);
+  if (price.rowCount === 0) return false;
   return price.rows;
 }
 
-export async function getPlanPrice(plan: number):Promise<any[]> {
+export async function getPlanPrice(plan: number):Promise<any[] | false> {
   const price = await connection.query(`
     SELECT price
     FROM plans
     WHERE id = $1
   `, [plan]);
+  if (price.rowCount === 0) return false;
   return price.rows;
 }
 

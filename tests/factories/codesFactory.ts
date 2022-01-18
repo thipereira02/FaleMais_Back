@@ -5,7 +5,6 @@ export async function insertCodes() {
     INSERT INTO codes
     (code)
     VALUES ('11'),('16'),('17'),('18')
-    RETURNING id
   `);
 }
 

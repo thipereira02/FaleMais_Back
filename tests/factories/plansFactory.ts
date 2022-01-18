@@ -5,6 +5,5 @@ export async function insertPlans() {
     INSERT INTO plans
     (name, price)
     VALUES ('FaleMais30', 30),('FaleMais60', 60),('FaleMais120', 120)
-    RETURNING id
   `);
 }

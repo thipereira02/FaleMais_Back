@@ -15,13 +15,15 @@ function calculateValues(minutes: number, oldPrice: number, planPrice: number, n
 
 export async function simulation(originId: number, destinationId: number, minutes: number, planId: number):Promise<false | {}> {
   const isValid = simulationSchema.validate({ originId, destinationId, minutes, planId });
-  if (isValid.error !== undefined) return false;
+  if (isValid.error !== undefined) return null;
 
   const getPrice = await simulationsRepository.getPrice(originId, destinationId);
+  if (!getPrice) return false;
   const newPrice = Number(getPrice.map((g) => g.newPrice));
   const oldPrice = Number(getPrice.map((g) => g.oldPrice));
 
   const getPlanPrice = await simulationsRepository.getPlanPrice(planId);
+  if (!getPlanPrice) return false;
   const planPrice = Number(getPlanPrice.map((g) => g.price));
 
   const { withoutPlan, withPlan, economy } = calculateValues(minutes, oldPrice, planPrice, newPrice);

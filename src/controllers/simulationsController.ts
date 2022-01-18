@@ -9,7 +9,8 @@ export async function makeSimulation(req: Request, res: Response) {
     const { originId, destinationId, minutes, planId } = req.body as SimulationInterface;
 
     const simulation = await simulationsService.simulation(originId, destinationId, minutes, planId);
-    if (!simulation) return res.sendStatus(400);
+    if (simulation === null) return res.sendStatus(400);
+    if (simulation === false) return res.sendStatus(404);
 
     return res.status(201).send(simulation);
   } catch (error) {

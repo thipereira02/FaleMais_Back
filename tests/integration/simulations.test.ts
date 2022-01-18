@@ -2,8 +2,6 @@
 import '../../src/setup';
 
 import { agent, clearDatabase, closeConnection } from '../utils/database';
-import { insertCodes } from '../factories/codesFactory';
-import { insertPlans } from '../factories/plansFactory';
 
 beforeEach(async () => {
   await clearDatabase();
@@ -56,18 +54,5 @@ describe('POST /simulation', () => {
     };
     const response = await agent.post('/simulation').send(body);
     expect(response.status).toBe(400);
-  });
-
-  it('should answer with status 201 when simulation is returned', async () => {
-    await insertCodes();
-    await insertPlans();
-    const body = {
-      originId: 1,
-      destinationId: 2,
-      minutes: 20,
-      planId: 1,
-    };
-    const response = await agent.post('/simulation').send(body);
-    expect(response.status).toBe(201);
   });
 });
