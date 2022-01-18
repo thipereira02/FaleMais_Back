@@ -5,13 +5,14 @@ export async function insertCodes() {
     INSERT INTO codes
     (code)
     VALUES ('11'),('16'),('17'),('18')
+    RETURNING id
   `);
 }
 
 export async function insertCodesAndValue() {
   await connection.query(`
     INSERT INTO "oldValues"
-    ("originId", "destinationId", price)
-    VALUES (1, 2, 1.90)
+    ("originId", "destinationId", "oldPrice", "newPrice")
+    VALUES (1, 2, 1.90, 2.09)
   `);
 }

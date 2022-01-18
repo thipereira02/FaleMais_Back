@@ -6,7 +6,7 @@ import app from '../../src/app';
 export const agent = supertest(app);
 
 export async function clearDatabase() {
-  await connection.query('TRUNCATE TABLE codes, "plans", "oldValues" RESTART IDENTITY;');
+  await connection.query('TRUNCATE TABLE codes, "plans", "oldValues", simulations RESTART IDENTITY');
 }
 
 export async function closeConnection() {
