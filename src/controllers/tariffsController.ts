@@ -8,7 +8,7 @@ export async function getTariffs(req: Request, res: Response) {
     const tariffs = await tariffsService.getTariffs();
     if (tariffs === false) return res.sendStatus(404);
 
-    return res.status(201).send(tariffs);
+    return res.status(200).send(tariffs);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
