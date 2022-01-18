@@ -1,7 +1,7 @@
 import '../setup';
 import connection from '../database';
 
-export async function getPlans() {
+export async function getPlans():Promise<false | string[]> {
   const result = await connection.query(`
     SELECT *
     FROM plans

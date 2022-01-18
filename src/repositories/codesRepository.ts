@@ -12,7 +12,7 @@ export async function getOriginCodes():Promise<false | string[]> {
 
 export async function getDestinationCodes(originCode: number):Promise<false | string[]> {
   const result = await connection.query(`
-    SELECT "oldValues".id, codes.code
+    SELECT "oldValues".id, "oldValues"."destinationId", codes.code
     AS code
     FROM "oldValues"
     JOIN codes

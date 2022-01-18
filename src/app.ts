@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import * as plansController from './controllers/plansController';
 import * as codesController from './controllers/codesController';
+import * as simulationController from './controllers/simulationController';
 
 const app = express();
 app.use(cors());
@@ -11,5 +12,6 @@ app.use(express.json());
 app.get('/plans', plansController.getNewPlans);
 app.get('/originCodes', codesController.getOriginCodes);
 app.get('/destinationCodes/:originId', codesController.getDestinationCodes);
+app.post('/simulation', simulationController.makeSimulation);
 
 export default app;
