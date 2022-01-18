@@ -1,4 +1,4 @@
-import * as simulationRepository from '../repositories/simulationRepository';
+import * as simulationsRepository from '../repositories/simulationsRepository';
 import { simulationSchema } from '../schemas/SimulationSchema';
 
 function calculateValues(minutes: number, oldPrice: number, planPrice: number, newPrice: number) {
@@ -17,16 +17,16 @@ export async function simulation(originId: number, destinationId: number, minute
   const isValid = simulationSchema.validate({ originId, destinationId, minutes, planId });
   if (isValid.error !== undefined) return false;
 
-  const getPrice = await simulationRepository.getPrice(originId, destinationId);
+  const getPrice = await simulationsRepository.getPrice(originId, destinationId);
   const newPrice = Number(getPrice.map((g) => g.newPrice));
   const oldPrice = Number(getPrice.map((g) => g.oldPrice));
 
-  const getPlanPrice = await simulationRepository.getPlanPrice(planId);
+  const getPlanPrice = await simulationsRepository.getPlanPrice(planId);
   const planPrice = Number(getPlanPrice.map((g) => g.price));
 
   const { withoutPlan, withPlan, economy } = calculateValues(minutes, oldPrice, planPrice, newPrice);
 
-  const simulate = await simulationRepository.simulate(originId, destinationId, minutes, planId, withoutPlan, withPlan, economy);
+  const simulate = await simulationsRepository.simulate(originId, destinationId, minutes, planId, withoutPlan, withPlan, economy);
 
   let destination: string;
   if (simulate.destinationId === 1) destination = '11';
